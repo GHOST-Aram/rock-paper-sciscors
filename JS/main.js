@@ -70,6 +70,22 @@ function determineWinner(computer, player){
     }
     return winner
 }
+function endGame(container, headingElement,playBtn, resultsContainer, replayButton){
+    //remove results from page
+    //remove results div
+    headingElement.textContent = "Congrats, we have a Winner"
+    clearElement(playBtn.parentElement, container)//remove playing buttons
+    resultsContainer.innerHTML = ""
+    resultsContainer.appendChild(replayButton)
+    resultsContainer.removeAttribute('class', 'grid')
+    resultsContainer.classList.add('text-center', 'start')
+
+    //reset results 
+    // computerPoints = 0
+    // playerPoints = 0
+}
+
+
 //enclose paragraphs in a div
 //resturna div containing paragraphs of results
 function makeResultsDiv(paragraphs){
@@ -125,6 +141,10 @@ function replay(replayButton){
     document.location.reload()
     })
 }
+function resetPoints(...args){
+    playerPoints = args[0]
+    computerPoints = args[1]
+}
 //Open Game
 const container = document.querySelector('.container')
 const heading = document.querySelector('h2')
@@ -145,20 +165,20 @@ startBtn.addEventListener('click', ()=>{
     let computerPoints = 0
     let playerPoints = 0
 
-    function endGame(headingElement){
-        //remove results from page
-        //remove results div
-        headingElement.textContent = "Congrats, we have a Winner"
-        clearElement(optionBtns[0].parentElement, container)//remove playing buttons
-        mainResDiv.innerHTML = ""
-        mainResDiv.appendChild(replayButton)
-        mainResDiv.removeAttribute('class', 'grid')
-        mainResDiv.classList.add('text-center', 'start')
+    // function {
+    //     //remove results from page
+    //     //remove results div
+    //     headingElement.textContent = "Congrats, we have a Winner"
+    //     clearElement(optionBtns[0].parentElement, container)//remove playing buttons
+    //     mainResDiv.innerHTML = ""
+    //     mainResDiv.appendChild(replayButton)
+    //     mainResDiv.removeAttribute('class', 'grid')
+    //     mainResDiv.classList.add('text-center', 'start')
 
-        //reset results 
-        computerPoints = 0
-        playerPoints = 0
-    }
+    //     //reset results 
+    //     // computerPoints = 0
+    //     // playerPoints = 0
+    // }
     
     
     //Add click event listener to each button
@@ -174,12 +194,14 @@ startBtn.addEventListener('click', ()=>{
             //Anounce winner once one winner has 5 points
             let winner  = results[2]
             //Execute if winner is computer
+            console.log(results)
             if(winner === 'computer'){
                 computerPoints++
                 if(computerPoints === 5){
                     let name = announceWinner("Computer", computerPoints)
                     container.insertBefore(name, mainResDiv)
-                    endGame(heading)
+                    endGame(container,heading,optionBtns[0],mainResDiv,replayButton)
+                    resetPoints(playerPoints,computerPoints)
                     replay(replayButton)  
                 } 
              //Execute if winner is human Player         
