@@ -4,7 +4,7 @@ const choices = ["rock", "paper", "scissors"]
 function announceWinner(name, points){
     const overalWinnerP = document.createElement('p')
     overalWinnerP.classList.add('text-center', 'overal-winner')  
-    overalWinnerP.textContent = `${name} has reached ${points} points`
+    overalWinnerP.textContent = `${name} has won by reaching ${points} points first`
     return overalWinnerP
 }
 //Create buttons for 3 options rock, paper amd scissors button
