@@ -162,6 +162,7 @@ startBtn.addEventListener('click', ()=>{
                     container.insertBefore(name, mainResDiv)
                     //remove results from page
                     clearElement(mainResDiv, container)
+                    clearElement(optionBtns[0].parentElement, container)
                     computerPoints = 0
                     playerPoints = 0
                 }       
@@ -173,6 +174,7 @@ startBtn.addEventListener('click', ()=>{
                     
                     //clear
                     clearElement(mainResDiv, container)
+                    clearElement(optionBtns[0].parentElement, container)
                     computerPoints = 0
                     playerPoints = 0
                 }
