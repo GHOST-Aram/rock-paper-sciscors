@@ -14,6 +14,11 @@ function createButton(textContent){
     return btn
 }
 
+//Clear element
+function clearElement(child, parent){
+    child.innerHTML = ""
+    parent.removeChild(child)
+}
 //Displays the game when the player is ready to play
 function displayGame(){
     container.innerHTML = ''
@@ -154,6 +159,8 @@ startBtn.addEventListener('click', ()=>{
                 if(computerPoints === 5){
                     let name = announceWinner("Computer", computerPoints)
                     container.insertBefore(name, mainResDiv)
+                    //remove results from page
+                    clearElement(mainResDiv, container)
                     computerPoints = 0
                     playerPoints = 0
                 }       
@@ -162,6 +169,9 @@ startBtn.addEventListener('click', ()=>{
                 if(playerPoints === 5){
                     let pname = announceWinner("Player", playerPoints)
                     container.insertBefore(pname, mainResDiv)
+                    
+                    //clear
+                    clearElement(mainResDiv, container)
                     computerPoints = 0
                     playerPoints = 0
                 }
