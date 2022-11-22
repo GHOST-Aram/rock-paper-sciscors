@@ -120,12 +120,16 @@ function play(choicelist,playerChoice){
 function render(element){
     container.appendChild(element)
 }
-
+function replay(replayButton){
+    //Add event listener to restart button
+    replayButton.addEventListener('click', (e) =>{
+    document.location.reload()
+    })
+}
 //Open Game
 const container = document.querySelector('.container')
 const heading = document.querySelector('h2')
 const button = document.createElement('button')
-
 openGame()
 
 //Start playing
@@ -135,15 +139,17 @@ startBtn.addEventListener('click', ()=>{
     const optionBtns = document.querySelectorAll('.choices button')
     const mainResDiv = document.createElement('div')
     mainResDiv.classList.add('all-results','grid')
+    const replayButton = createButton("Replay Game")
+    
+    // replayButton.setAttribute('id','replay-btn')
 
     let computerPoints = 0
     let playerPoints = 0
 
     function endGame(){
-//remove results from page
+        //remove results from page
         //remove results div
         clearElement(optionBtns[0].parentElement, container)//remove playing buttons
-        const replayButton = createButton("Replay Game")
         mainResDiv.innerHTML = ""
         mainResDiv.appendChild(replayButton)
         mainResDiv.removeAttribute('class', 'grid')
@@ -153,9 +159,12 @@ startBtn.addEventListener('click', ()=>{
         computerPoints = 0
         playerPoints = 0
     }
+    
+    
     //Add click event listener to each button
     optionBtns.forEach(btn =>{
         btn.addEventListener('click', (e)=>{
+            e.stopPropagation()
             let player = e.target.textContent
             let results = play(choices,player)//order of results - [computer, player, winner]
             let paragraphs = makeResultParagraphs(results)
@@ -165,31 +174,27 @@ startBtn.addEventListener('click', ()=>{
 
             //Anounce winner once one winner has 5 points
             let winner  = results[2]
-            // const overalWinnerP = document.createElement('p')
-            // overalWinnerP.classList.add('text-center', 'overal-winner')  
-
-            console.log(results)
+            //Execute if winner is computer
             if(winner === 'computer'){
                 computerPoints++
                 if(computerPoints === 5){
                     let name = announceWinner("Computer", computerPoints)
                     container.insertBefore(name, mainResDiv)
                     endGame()
-                    
-                }       
+                    replay(replayButton)  
+                } 
+             //Execute if winner is human Player         
             } else if(winner === 'player'){
                 playerPoints++
                 if(playerPoints === 5){
                     let pname = announceWinner("Player", playerPoints)
                     container.insertBefore(pname, mainResDiv)
                     endGame()
-                    
+                    replay(replayButton)
                 }
             }
-            
-            
-            
         })
 
     })
 })
+
