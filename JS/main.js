@@ -1,4 +1,29 @@
 let choices = ["rock", "paper", "scissors"]
+
+//Create buttons for 3 options rock, paper amd scissors button
+function createButton(textContent){
+    const btn = document.createElement('button')
+    btn.textContent = textContent
+    return btn
+}
+
+//Displays the game when the player is ready to play
+function displayGame(){
+    container.innerHTML = ''
+    const heading2 = document.createElement('h2')
+    const optionsDiv = document.createElement('div')
+    heading2.textContent = "Pick your choice"
+    container.appendChild(heading2)
+    choices.forEach(choice => {
+        let btn = createButton(choice)
+        optionsDiv.appendChild(btn)
+    })
+    
+    optionsDiv.classList.add('flex', 'choices')
+    render(optionsDiv)
+}
+
+
 function getRandomIndex(min, max){
     let randInt = Math.floor(Math.random() * (max - min) + min)
     return randInt
@@ -33,6 +58,7 @@ function determineWinner(computer, player){
     }
     return winner
 }
+
 function openGame(){
     heading.textContent = "Welcome to Rock, Paper, Scissors game"
     const div = document.createElement('div')
@@ -53,3 +79,8 @@ const button = document.createElement('button')
 
 openGame()
 
+//Start playing
+const startBtn = document.querySelector('#start-btn')
+startBtn.addEventListener('click', ()=>{
+    displayGame()
+})
