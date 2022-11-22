@@ -1,5 +1,12 @@
-let choices = ["rock", "paper", "scissors"]
-
+const choices = ["rock", "paper", "scissors"]
+//Announce winner once one player reaches 5 points
+//take name of player and points and return a message paragraph
+function announceWinner(name, points){
+    const overalWinnerP = document.createElement('p')
+    overalWinnerP.classList.add('text-center', 'overal-winner')  
+    overalWinnerP.textContent = `${name} has reached ${points} points`
+    return overalWinnerP
+}
 //Create buttons for 3 options rock, paper amd scissors button
 function createButton(textContent){
     const btn = document.createElement('button')
@@ -98,10 +105,10 @@ function openGame(){
 //find player choice,computer choice, determines the winner
 // and return an array containing the three values 
 function play(choicelist,playerChoice){
-    let computer = getComputerChoice(choicelist)
-    let player = getPlayerChoice(playerChoice)
-    let winner = determineWinner(computer, player)
-    let results = [computer, player, winner]
+    let compChoice = getComputerChoice(choicelist)
+    let pChoice = getPlayerChoice(playerChoice)
+    let winner = determineWinner(compChoice, pChoice)
+    let results = [compChoice, pChoice, winner]
     return results
 }
 
@@ -124,15 +131,44 @@ startBtn.addEventListener('click', ()=>{
     const mainResDiv = document.createElement('div')
     mainResDiv.classList.add('all-results','grid')
 
+    let computerPoints = 0
+    let playerPoints = 0
     //Add click event listener to each button
     optionBtns.forEach(btn =>{
         btn.addEventListener('click', (e)=>{
             let player = e.target.textContent
-            let results = play(choices,player)
+            let results = play(choices,player)//order of results - [computer, player, winner]
             let paragraphs = makeResultParagraphs(results)
             let resultsDiv = makeResultsDiv(paragraphs)
             mainResDiv.appendChild(resultsDiv)
             render(mainResDiv)
+
+            //Anounce winner once one winner has 5 points
+            let winner  = results[2]
+            // const overalWinnerP = document.createElement('p')
+            // overalWinnerP.classList.add('text-center', 'overal-winner')  
+
+            console.log(results)
+            if(winner === 'computer'){
+                computerPoints++
+                if(computerPoints === 5){
+                    let name = announceWinner("Computer", computerPoints)
+                    container.insertBefore(name, mainResDiv)
+                    computerPoints = 0
+                    playerPoints = 0
+                }       
+            } else if(winner === 'player'){
+                playerPoints++
+                if(playerPoints === 5){
+                    let pname = announceWinner("Player", playerPoints)
+                    container.insertBefore(pname, mainResDiv)
+                    computerPoints = 0
+                    playerPoints = 0
+                }
+            }
+            
+            
+            
         })
 
     })
