@@ -150,7 +150,8 @@ const container = document.querySelector('.container')
 const heading = document.querySelector('h2')
 const button = document.createElement('button')
 openGame()
-
+let computerPoints = 0
+let playerPoints = 0
 //Start playing
 const startBtn = document.querySelector('#start-btn')
 startBtn.addEventListener('click', ()=>{
@@ -159,28 +160,7 @@ startBtn.addEventListener('click', ()=>{
     const mainResDiv = document.createElement('div')
     mainResDiv.classList.add('all-results','grid')
     const replayButton = createButton("Replay Game")
-    
-    // replayButton.setAttribute('id','replay-btn')
-
-    let computerPoints = 0
-    let playerPoints = 0
-
-    // function {
-    //     //remove results from page
-    //     //remove results div
-    //     headingElement.textContent = "Congrats, we have a Winner"
-    //     clearElement(optionBtns[0].parentElement, container)//remove playing buttons
-    //     mainResDiv.innerHTML = ""
-    //     mainResDiv.appendChild(replayButton)
-    //     mainResDiv.removeAttribute('class', 'grid')
-    //     mainResDiv.classList.add('text-center', 'start')
-
-    //     //reset results 
-    //     // computerPoints = 0
-    //     // playerPoints = 0
-    // }
-    
-    
+  
     //Add click event listener to each button
     optionBtns.forEach(btn =>{
         btn.addEventListener('click', (e)=>{
@@ -210,7 +190,7 @@ startBtn.addEventListener('click', ()=>{
                 if(playerPoints === 5){
                     let pname = announceWinner("Player", playerPoints)
                     container.insertBefore(pname, mainResDiv)
-                    endGame(heading)
+                    endGame(container,heading,optionBtns[0],mainResDiv,replayButton)
                     replay(replayButton)
                 }
             }
