@@ -145,9 +145,10 @@ startBtn.addEventListener('click', ()=>{
     let computerPoints = 0
     let playerPoints = 0
 
-    function endGame(){
+    function endGame(headingElement){
         //remove results from page
         //remove results div
+        headingElement.textContent = "Congrats, we have a Winner"
         clearElement(optionBtns[0].parentElement, container)//remove playing buttons
         mainResDiv.innerHTML = ""
         mainResDiv.appendChild(replayButton)
@@ -178,7 +179,7 @@ startBtn.addEventListener('click', ()=>{
                 if(computerPoints === 5){
                     let name = announceWinner("Computer", computerPoints)
                     container.insertBefore(name, mainResDiv)
-                    endGame()
+                    endGame(heading)
                     replay(replayButton)  
                 } 
              //Execute if winner is human Player         
@@ -187,7 +188,7 @@ startBtn.addEventListener('click', ()=>{
                 if(playerPoints === 5){
                     let pname = announceWinner("Player", playerPoints)
                     container.insertBefore(pname, mainResDiv)
-                    endGame()
+                    endGame(heading)
                     replay(replayButton)
                 }
             }
