@@ -32,10 +32,11 @@ function getComputerChoice(list){
     let index = getRandomIndex(0, 3)
     return list[index]
 }
-function getPlayerChoice(){
-    let choice = prompt("Choose and type one \n- Rock, paper or scissors : ")
-    return choice.toLowerCase().trim()
+//Refactor getPlayer choice to take player choice form event target
+function getPlayerChoice(choice){
+    return choice
 }
+
 
 function determineWinner(computer, player){
     let winner =''
@@ -58,7 +59,32 @@ function determineWinner(computer, player){
     }
     return winner
 }
+//enclose paragraphs in a div
+//resturna div containing paragraphs of results
+function makeResultsDiv(paragraphs){
+    const resultsDiv = document.createElement('div')
+    resultsDiv.classList.add('result')
+    paragraphs.forEach(paragraph =>{
+        resultsDiv.appendChild(paragraph)
+    })
+    return resultsDiv
+}
 
+//Create paragraphs for each result for rendering to the DOM
+//return an array of paragraph elements with textcontents
+function makeResultParagraphs(results){
+    const p1 = document.createElement('p')  
+    p1.textContent = `Computer: ${results[0]}`  
+    const p2 = document.createElement('p')  
+    p2.textContent = `Player: ${results[1]}` 
+    const p3 = document.createElement('p') 
+    p3.style.color = 'red' 
+    p3.textContent = `Winner: ${results[2]}` 
+    let paragraphs = [p1, p2, p3]
+    return paragraphs
+}
+
+//Load the welcome page when page loads
 function openGame(){
     heading.textContent = "Welcome to Rock, Paper, Scissors game"
     const div = document.createElement('div')
@@ -67,6 +93,16 @@ function openGame(){
     button.setAttribute('id','start-btn')
     div.appendChild(button)
     render(div)
+}
+//When player clicks an option button
+//find player choice,computer choice, determines the winner
+// and return an array containing the three values 
+function play(choicelist,playerChoice){
+    let computer = getComputerChoice(choicelist)
+    let player = getPlayerChoice(playerChoice)
+    let winner = determineWinner(computer, player)
+    let results = [computer, player, winner]
+    return results
 }
 
 function render(element){
@@ -83,4 +119,21 @@ openGame()
 const startBtn = document.querySelector('#start-btn')
 startBtn.addEventListener('click', ()=>{
     displayGame()
+
+    const optionBtns = document.querySelectorAll('.choices button')
+    const mainResDiv = document.createElement('div')
+    mainResDiv.classList.add('all-results','grid')
+
+    //Add click event listener to each button
+    optionBtns.forEach(btn =>{
+        btn.addEventListener('click', (e)=>{
+            let player = e.target.textContent
+            let results = play(choices,player)
+            let paragraphs = makeResultParagraphs(results)
+            let resultsDiv = makeResultsDiv(paragraphs)
+            mainResDiv.appendChild(resultsDiv)
+            render(mainResDiv)
+        })
+
+    })
 })
