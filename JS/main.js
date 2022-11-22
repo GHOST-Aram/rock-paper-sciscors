@@ -121,11 +121,6 @@ function render(element){
     container.appendChild(element)
 }
 
-function reset(...args){
-    args.forEach(arg =>{
-        arg = 0
-    })
-}
 //Open Game
 const container = document.querySelector('.container')
 const heading = document.querySelector('h2')
@@ -167,7 +162,8 @@ startBtn.addEventListener('click', ()=>{
                     container.insertBefore(name, mainResDiv)
                     //remove results from page
                     clearElement(mainResDiv, container)
-                    reset(computerPoints, playerPoints)
+                    computerPoints = 0
+                    playerPoints = 0
                 }       
             } else if(winner === 'player'){
                 playerPoints++
@@ -177,7 +173,8 @@ startBtn.addEventListener('click', ()=>{
                     
                     //clear
                     clearElement(mainResDiv, container)
-                    reset(computerPoints, playerPoints)
+                    computerPoints = 0
+                    playerPoints = 0
                 }
             }
             
