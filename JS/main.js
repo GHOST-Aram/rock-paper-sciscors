@@ -20,12 +20,11 @@ function clearElement(child, parent){
     parent.removeChild(child)
 }
 //Displays the game when the player is ready to play
-function displayGame(){
+function displayGame(headingElement){
     container.innerHTML = ''
-    const heading2 = document.createElement('h2')
     const optionsDiv = document.createElement('div')
-    heading2.textContent = "Pick your choice"
-    container.appendChild(heading2)
+    headingElement.textContent = "Pick your choice"
+    container.appendChild(headingElement)
     choices.forEach(choice => {
         let btn = createButton(choice)
         optionsDiv.appendChild(btn)
@@ -135,7 +134,7 @@ openGame()
 //Start playing
 const startBtn = document.querySelector('#start-btn')
 startBtn.addEventListener('click', ()=>{
-    displayGame()
+    displayGame(heading)
     const optionBtns = document.querySelectorAll('.choices button')
     const mainResDiv = document.createElement('div')
     mainResDiv.classList.add('all-results','grid')
@@ -164,7 +163,6 @@ startBtn.addEventListener('click', ()=>{
     //Add click event listener to each button
     optionBtns.forEach(btn =>{
         btn.addEventListener('click', (e)=>{
-            e.stopPropagation()
             let player = e.target.textContent
             let results = play(choices,player)//order of results - [computer, player, winner]
             let paragraphs = makeResultParagraphs(results)
