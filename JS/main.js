@@ -33,5 +33,23 @@ function determineWinner(computer, player){
     }
     return winner
 }
+function openGame(){
+    heading.textContent = "Welcome to Rock, Paper, Scissors game"
+    const div = document.createElement('div')
+    div.classList.add('start')
+    button.textContent = "Start Playing"
+    button.setAttribute('id','start-btn')
+    div.appendChild(button)
+    render(div)
+}
 
+function render(element){
+    container.appendChild(element)
+}
+//Open Game
+const container = document.querySelector('.container')
+const heading = document.querySelector('h2')
+const button = document.createElement('button')
+
+openGame()
 
