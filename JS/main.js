@@ -132,13 +132,27 @@ openGame()
 const startBtn = document.querySelector('#start-btn')
 startBtn.addEventListener('click', ()=>{
     displayGame()
-
     const optionBtns = document.querySelectorAll('.choices button')
     const mainResDiv = document.createElement('div')
     mainResDiv.classList.add('all-results','grid')
 
     let computerPoints = 0
     let playerPoints = 0
+
+    function endGame(){
+//remove results from page
+        //remove results div
+        clearElement(optionBtns[0].parentElement, container)//remove playing buttons
+        const replayButton = createButton("Replay Game")
+        mainResDiv.innerHTML = ""
+        mainResDiv.appendChild(replayButton)
+        mainResDiv.removeAttribute('class', 'grid')
+        mainResDiv.classList.add('text-center', 'start')
+
+        //reset results 
+        computerPoints = 0
+        playerPoints = 0
+    }
     //Add click event listener to each button
     optionBtns.forEach(btn =>{
         btn.addEventListener('click', (e)=>{
@@ -160,23 +174,16 @@ startBtn.addEventListener('click', ()=>{
                 if(computerPoints === 5){
                     let name = announceWinner("Computer", computerPoints)
                     container.insertBefore(name, mainResDiv)
-                    //remove results from page
-                    clearElement(mainResDiv, container)
-                    clearElement(optionBtns[0].parentElement, container)
-                    computerPoints = 0
-                    playerPoints = 0
+                    endGame()
+                    
                 }       
             } else if(winner === 'player'){
                 playerPoints++
                 if(playerPoints === 5){
                     let pname = announceWinner("Player", playerPoints)
                     container.insertBefore(pname, mainResDiv)
+                    endGame()
                     
-                    //clear
-                    clearElement(mainResDiv, container)
-                    clearElement(optionBtns[0].parentElement, container)
-                    computerPoints = 0
-                    playerPoints = 0
                 }
             }
             
