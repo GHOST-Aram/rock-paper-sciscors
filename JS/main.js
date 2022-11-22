@@ -34,20 +34,4 @@ function determineWinner(computer, player){
     return winner
 }
 
-//let player = getPlayerChoice()
-let count = 1
-while(count <= 4){
-    let computer = getComputerChoice(choices)
-    let player = getPlayerChoice()
-    let winner = determineWinner(computer, player)
-
-    console.log(`\nGame: ${count}`)
-    console.log(`Computer:   ${computer}`)
-    console.log(`Player:     ${player}`)
-    console.log(`Winner:     ${winner}`)
-    count ++
-}
-
-// winner = determineWinner(computer, player)
-// console.log(`Results : ${[computer, player]} Winner: ${winner}`)
 
