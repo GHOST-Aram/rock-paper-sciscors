@@ -12,21 +12,15 @@
 body{
     background-color: black;
 }
-.container{
-    width: 80%;
+.all-results{
+    width: 100%;
     margin: auto;
-    padding: 2rem;
-}
-.start,
-.container .choices{
-    margin: auto;
-    text-align: center;
-    margin-top: 10rem;
-}
-.overal-winner{
-    font-size: 1.7rem;
-    color: green;
-    margin: 3rem 0 -3rem 0;
+    text-align: left;
+    margin-top: 5rem;
+    border: 2px solid white;
+    padding: 1rem;
+    border-radius: 1rem;
+    grid-template-columns: repeat(auto-fill,minmax(150px, 1fr));
 }
 button{
     padding: 1rem;
@@ -37,30 +31,11 @@ button{
     transition: transform .25s;
     font-size: 1.5rem;
 }
-#start-btn{
-    font-size: 2rem;
-}
 button:hover{
     transform: scale(1.1);
 }
 button:focus{
     opacity: 1;
-}
-h2{
-    text-align: center;
-    font-size: 2rem;
-    margin-top: 7rem;
-    /* margin: auto; */
-}
-.flex{
-    display: flex;
-}
-.grid{
-    display: grid;
-    row-gap: 1rem;
-}
-.text-center{
-    text-align: center;
 }
 .choices{
     justify-content: space-between;
@@ -69,14 +44,54 @@ h2{
 .choices button{
     min-width: 30%;
 }
-
-.all-results{
-    width: 100%;
+.container{
+    width: 80%;
     margin: auto;
-    text-align: left;
-    margin-top: 5rem;
-    border: 2px solid white;
-    padding: 1rem;
-    border-radius: 1rem;
-    grid-template-columns: repeat(auto-fill,minmax(150px, 1fr));
+    /* padding: 2rem; */
+}
+
+.container .choices,
+.start{
+    margin: auto;
+    text-align: center;
+    margin-top: 10rem;
+}
+.flex{
+    display: flex;
+}
+.grid{
+    display: grid;
+    row-gap: 1rem;
+}
+h2{
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 7rem;
+}
+.overal-winner{
+    font-size: 1.7rem;
+    color: green;
+    margin: 3rem 0 -3rem 0;
+}
+
+#start-btn{
+    font-size: 2rem;
+}
+
+
+
+
+.text-center{
+    text-align: center;
+}
+
+
+
+
+@media screen and (max-width:700px) {
+    .choices{
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+    }
 }

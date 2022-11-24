@@ -145,6 +145,11 @@ function resetPoints(...args){
     playerPoints = args[0]
     computerPoints = args[1]
 }
+
+
+
+
+
 //Open Game
 const container = document.querySelector('.container')
 const heading = document.querySelector('h2')
